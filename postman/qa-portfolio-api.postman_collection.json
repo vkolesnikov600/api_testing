@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "9f482cf0-35d3-47a4-a4f1-qa-portfolio-api",
     "name": "QA Portfolio API",
-    "description": "Postman collection for QA Portfolio API checks.",
+    "description": "Коллекция проверки для моего сайта.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
