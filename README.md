@@ -1,6 +1,6 @@
-# API Testing
+# API Testing на Python
 
-API-тесты для проекта `qa-portfolio`.
+API-тесты для проекта `qa-portfolio`, написанные на Python с использованием `pytest` и `requests`.
 
 Репозиторий показывает базовый подход к API testing:
 
@@ -9,6 +9,7 @@ API-тесты для проекта `qa-portfolio`.
 - проверка `Content-Type`;
 - проверка HTML/static resources;
 - проверка негативного сценария `404`;
+- Postman-коллекция для ручного запуска запросов;
 - запуск тестов локально и через GitHub Actions.
 
 ## Что проверяется
@@ -34,7 +35,10 @@ npm start
 Затем в этом репозитории запусти тесты:
 
 ```bash
-npm test
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pytest
 ```
 
 По умолчанию тесты используют:
@@ -46,14 +50,30 @@ http://localhost:3000
 Можно указать другой адрес через `BASE_URL`:
 
 ```bash
-BASE_URL=http://localhost:3000 npm test
+BASE_URL=http://localhost:3000 pytest
 ```
 
 Для PowerShell:
 
 ```powershell
-$env:BASE_URL="http://localhost:3000"; npm test
+$env:BASE_URL="http://localhost:3000"; pytest
 ```
+
+## Postman
+
+Коллекция находится здесь:
+
+```text
+postman/qa-portfolio-api.postman_collection.json
+```
+
+В коллекции используется переменная:
+
+```text
+baseUrl = http://localhost:3000
+```
+
+Ее можно поменять на адрес нужного окружения.
 
 ## CI
 
@@ -62,6 +82,7 @@ GitHub Actions workflow:
 1. клонирует репозиторий `qa-portfolio`;
 2. устанавливает зависимости сайта;
 3. запускает Express-приложение;
-4. запускает API-тесты из этого репозитория.
+4. устанавливает Python-зависимости;
+5. запускает API-тесты через `pytest`.
 
 Это позволяет хранить API-тесты отдельно от сайта и показывать их как самостоятельный QA-проект.

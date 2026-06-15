@@ -18,7 +18,15 @@ jobs:
       - name: Checkout API tests
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install API test dependencies
+        run: pip install -r requirements.txt
+
+      - name: Setup Node.js for QA Portfolio app
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -40,7 +48,7 @@ jobs:
       - name: Run API tests
         env:
           BASE_URL: http://localhost:3000
-        run: npm test
+        run: pytest
 
       - name: Stop QA Portfolio app
         if: always()
