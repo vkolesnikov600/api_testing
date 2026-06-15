@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "a1b2c3d4-reqres-tests",
     "name": "ReqRes API QA Tests",
-    "description": "Коллекция тестов для ReqRes API (QA Practice)",
+    "description": "Коллекция тестов для ReqRes API ",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
