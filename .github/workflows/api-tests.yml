@@ -1,0 +1,51 @@
+name: API tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  api-tests:
+    name: Run API tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout API tests
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Clone QA Portfolio app
+        run: git clone https://github.com/vkolesnikov600/qa-portfolio.git ../qa-portfolio
+
+      - name: Install QA Portfolio dependencies
+        working-directory: ../qa-portfolio
+        run: npm ci
+
+      - name: Start QA Portfolio app
+        working-directory: ../qa-portfolio
+        run: |
+          node app.js &
+          echo $! > app.pid
+          sleep 3
+
+      - name: Run API tests
+        env:
+          BASE_URL: http://localhost:3000
+        run: npm test
+
+      - name: Stop QA Portfolio app
+        if: always()
+        working-directory: ../qa-portfolio
+        run: |
+          if [ -f app.pid ]; then
+            kill "$(cat app.pid)" || true
+          fi
