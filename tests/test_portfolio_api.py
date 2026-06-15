@@ -26,7 +26,7 @@ def test_about_endpoint_returns_profile_text():
     response = requests.get(url("/about"), timeout=TIMEOUT)
 
     assert response.status_code == 200
-    assert response.text == "I am QA Engineer"
+    assert response.text == "ВСЕ работет"
 
 
 @pytest.mark.api
